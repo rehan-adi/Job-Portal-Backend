@@ -1,5 +1,5 @@
-import postJobModel from "../models/PostJob.model.js";
-import UserModel from "../models/User.js";
+import postJobModel from '../models/PostJob.model.js';
+import UserModel from '../models/User.js';
 
 // create jobs
 export const createJob = async (req, res) => {
@@ -17,7 +17,7 @@ export const createJob = async (req, res) => {
       requiredSkills,
       companyUrl,
       jobDescription,
-      email,
+      email
     } = req.body;
 
     const newJob = new postJobModel({
@@ -33,7 +33,7 @@ export const createJob = async (req, res) => {
       requiredSkills,
       companyUrl,
       jobDescription,
-      email,
+      email
     });
 
     await newJob.save();
@@ -42,10 +42,10 @@ export const createJob = async (req, res) => {
 
     res
       .status(201)
-      .json({ message: "Job post created successfully", job: newJob });
+      .json({ message: 'Job post created successfully', job: newJob });
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log("Failed to create job", error);
+    console.log('Failed to create job', error);
   }
 };
 
@@ -54,23 +54,23 @@ export const createJob = async (req, res) => {
 export const getJobs = async (req, res) => {
   try {
     const jobs = await postJobModel.find();
-    return res.status(200).json({ message: "Showing jobs", jobs });
+    return res.status(200).json({ message: 'Showing jobs', jobs });
   } catch (error) {
     res.status(500).json({ error: error.message });
-    console.log("Failed to fetch jobs", error);
+    console.log('Failed to fetch jobs', error);
   }
 };
 
-// get salary of jobs 
+// get salary of jobs
 
-export const getSalary = async(req, res) => {
-   try {
-      const salary = await postJobModel.find();
-      return res.status(200).json({ message: "Showing salary", salary });
-   } catch (error) {
-     console.log('Failed to get salary', error);
-   }
-}
+export const getSalary = async (req, res) => {
+  try {
+    const salary = await postJobModel.find();
+    return res.status(200).json({ message: 'Showing salary', salary });
+  } catch (error) {
+    console.log('Failed to get salary', error);
+  }
+};
 
 // Showing single job details
 export const getJobDetails = async (req, res) => {
@@ -80,14 +80,12 @@ export const getJobDetails = async (req, res) => {
     const job = await postJobModel.findById(id);
 
     if (!job) {
-      return res.status(404).json({ error: "Job not found" });
+      return res.status(404).json({ error: 'Job not found' });
     }
 
     res.json(job);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
-
-
