@@ -1,14 +1,19 @@
 {
-  "name": "mern-job-portal-backend",
+  "name": "job-portal-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "A production grade backend code for Job Portal",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "dev": "node src/server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "javascript",
+    "express",
+    "backend"
+  ],
+  "author": "Rehan",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
