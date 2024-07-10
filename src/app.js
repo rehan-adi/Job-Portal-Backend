@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import morgan from 'morgan';
 
 import postJob from './routes/Job.routs.js';
 import authRoute from './routes/Auth.routs.js';
@@ -18,7 +19,8 @@ const limit = rateLimit({
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(limit());
+app.use(limit);
+app.use(morgan("dev"));
 
 
 // routes
