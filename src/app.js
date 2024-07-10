@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
+import helmet from 'helmet';
 
 import postJob from './routes/Job.routs.js';
 import authRoute from './routes/Auth.routs.js';
@@ -25,6 +26,7 @@ app.use(cors({
 }));
 app.use(limit);
 app.use(morgan("dev"));
+app.use(helmet());
 app.use(express.urlencoded({extended: true}));
 
 
