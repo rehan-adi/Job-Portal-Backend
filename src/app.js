@@ -7,6 +7,7 @@ import postJob from './routes/Job.routs.js';
 import authRoute from './routes/Auth.routs.js';
 import profileRoute from './routes/Profile.routs.js';
 
+
 const app = express();
 
 // Rate limiting configuration
@@ -18,9 +19,13 @@ const limit = rateLimit({
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN,
+  credentials: true,
+}));
 app.use(limit);
 app.use(morgan("dev"));
+app.use(express.urlencoded({extended: true}));
 
 
 // routes
