@@ -32,6 +32,7 @@ app.use(morgan('dev'));
 app.use(helmet());
 app.use(hpp());
 app.use(xss());
+app.disable('x-powered-by');
 app.use(express.urlencoded({ extended: true }));
 
 // routes
