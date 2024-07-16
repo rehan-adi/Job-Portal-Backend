@@ -1,10 +1,11 @@
 import express from 'express';
+import hpp from 'hpp';
 import cors from 'cors';
-import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import hpp from 'hpp';
 import xss from 'xss-clean';
+import rateLimit from 'express-rate-limit';
+import mongoSanitize from 'express-mongo-sanitize'
 
 import postJob from './routes/Job.routs.js';
 import authRoute from './routes/Auth.routs.js';
@@ -33,6 +34,7 @@ app.use(helmet());
 app.use(hpp());
 app.use(xss());
 app.disable('x-powered-by');
+app.use(mongoSanitize());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
