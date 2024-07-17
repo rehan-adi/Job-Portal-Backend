@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const postJobSchema = mongoose.Schema(
+const postJobSchema = new mongoose.Schema(
   {
     jobTitle: { type: String, required: true },
     companyName: { type: String, required: true },

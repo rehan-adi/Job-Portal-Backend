@@ -1,7 +1,7 @@
+import { Request, Response } from 'express';
 import profileModel from '../models/profile.js';
-import mongoose from 'mongoose';
 
-export const createProfile = async (req, res) => {
+export const createProfile = async (req: Request, res: Response) => {
   try {
     const newProfile = new profileModel(req.body);
     await newProfile.save();
@@ -17,7 +17,7 @@ export const createProfile = async (req, res) => {
   }
 };
 
-export const getProfile = async (req, res) => {
+export const getProfile = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const userProfile = await profileModel.findById(id);

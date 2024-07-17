@@ -45,7 +45,7 @@ export const createJob = async (req: Request, res: Response) => {
       .status(201)
       .json({ message: 'Job post created successfully', job: newJob });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
     console.log('Failed to create job', error);
   }
 };
@@ -57,7 +57,7 @@ export const getJobs = async (req: Request, res: Response) => {
     const jobs = await postJobModel.find();
     return res.status(200).json({ message: 'Showing jobs', jobs });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error instanceof Error ? error.message : 'Unknown error' });
     console.log('Failed to fetch jobs', error);
   }
 };

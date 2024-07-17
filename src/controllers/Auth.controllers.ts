@@ -35,7 +35,7 @@ export const register = async (req: Request, res: Response) => {
       .json({
         success: true,
         message: 'Failed to register',
-        error: error.message
+        error: error instanceof Error ? error.message : 'Unknown error'
       });
   }
 };
@@ -75,7 +75,7 @@ export const login = async (req: Request, res: Response) => {
       .json({
         success: false,
         message: 'Failed to login',
-        error: error.message
+        error: error instanceof Error ? error.message : 'Unknown error'
       });
   }
 };
