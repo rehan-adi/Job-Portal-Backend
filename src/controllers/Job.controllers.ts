@@ -1,8 +1,9 @@
+import { Request, Response } from 'express';
 import postJobModel from '../models/PostJob.model.js';
 import UserModel from '../models/User.js';
 
 // create jobs
-export const createJob = async (req, res) => {
+export const createJob = async (req: Request, res: Response) => {
   try {
     const {
       jobTitle,
@@ -51,7 +52,7 @@ export const createJob = async (req, res) => {
 
 // Showing all jobs
 
-export const getJobs = async (req, res) => {
+export const getJobs = async (req: Request, res: Response) => {
   try {
     const jobs = await postJobModel.find();
     return res.status(200).json({ message: 'Showing jobs', jobs });
@@ -63,7 +64,7 @@ export const getJobs = async (req, res) => {
 
 // get salary of jobs
 
-export const getSalary = async (req, res) => {
+export const getSalary = async (req: Request, res: Response) => {
   try {
     const salary = await postJobModel.find();
     return res.status(200).json({ message: 'Showing salary', salary });
@@ -73,7 +74,7 @@ export const getSalary = async (req, res) => {
 };
 
 // Showing single job details
-export const getJobDetails = async (req, res) => {
+export const getJobDetails = async (req: Request, res: Response) => {
   const id = req.params.id;
 
   try {

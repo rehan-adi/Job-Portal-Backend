@@ -5,8 +5,9 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js",
-    "dev": "node src/server.js"
+    "start": "nodemon server.ts",
+    "build": "tsc",
+    "dev": "ts-node src/server.ts"
   },
   "keywords": [
     "javascript",
@@ -31,6 +32,15 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
-    "prettier": "^3.3.2"
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/hpp": "^0.2.6",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/mongoose": "^5.11.97",
+    "@types/morgan": "^1.9.9",
+    "prettier": "^3.3.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   }
 }

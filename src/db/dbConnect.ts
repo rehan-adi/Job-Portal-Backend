@@ -1,9 +1,10 @@
+import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const dbConnect = async (req, res) => {
+const dbConnect = async (req: Request, res: Response) => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: process.env.DB_NAME,
