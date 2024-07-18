@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import xss from 'xss-clean';
 import rateLimit from 'express-rate-limit';
-import mongoSanitize from 'express-mongo-sanitize'
+import mongoSanitize from 'express-mongo-sanitize';
 
 import postJob from './routes/Job.routs.js';
 import authRoute from './routes/Auth.routs.js';
@@ -15,19 +15,19 @@ const app = express();
 
 // Rate limiting configuration
 const limit = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again after 15 minutes'
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP, please try again after 15 minutes'
 });
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true
-  })
+    cors({
+        origin: process.env.CORS_ORIGIN,
+        credentials: true
+    })
 );
 app.use(limit);
 app.use(morgan('dev'));
