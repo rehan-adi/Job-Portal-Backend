@@ -1,12 +1,15 @@
-import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const dbConnect = async (req: Request, res: Response) => {
+const dbConnect = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    const Mongo_URI = process.env.MONGODB_URI;
+    if (!Mongo_URI) {
+      throw new Error('MongoDB URI is not provided in environment variables');
+    }
+    await mongoose.connect(Mongo_URI, {
       dbName: process.env.DB_NAME,
     });
     console.log('MongoDB connected successfully');
