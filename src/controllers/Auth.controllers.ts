@@ -62,7 +62,7 @@ export const login = async (req: Request, res: Response) => {
         message: 'Incorrect password. Please try again.'
       });
     }
-    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY || "", {
       expiresIn: '1h'
     });
     res
