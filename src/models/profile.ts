@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
+import { Profile } from '../interfaces/interfaces.js';
 
-const profileSchema = new mongoose.Schema({
+const profileSchema = new Schema<Profile>({
     username: { type: String },
     email: { type: String },
     password: { type: String },
@@ -13,6 +14,6 @@ const profileSchema = new mongoose.Schema({
     profileImage: { type: String }
 });
 
-const profileModel = mongoose.model('Profile', profileSchema);
+const profileModel = model<Profile>('Profile', profileSchema);
 
 export default profileModel;
