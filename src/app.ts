@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import xss from 'xss-clean';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
+import errorHandler from './utils/errorHandler.js';
 
 import postJob from './routes/Job.routs.js';
 import authRoute from './routes/Auth.routs.js';
@@ -23,6 +24,7 @@ const limit = rateLimit({
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(errorHandler);
 app.use(
     cors({
         origin: process.env.CORS_ORIGIN,
