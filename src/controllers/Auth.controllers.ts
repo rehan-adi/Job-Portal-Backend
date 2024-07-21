@@ -32,7 +32,7 @@ export const register = async (req: Request, res: Response) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({
-            success: true,
+            success: false,
             message: 'Failed to register',
             error: error instanceof Error ? error.message : 'Unknown error'
         });
@@ -77,7 +77,7 @@ export const login = async (req: Request, res: Response) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(401).json({
+        res.status(500).json({
             success: false,
             message: 'Failed to login',
             error: error instanceof Error ? error.message : 'Unknown error'
