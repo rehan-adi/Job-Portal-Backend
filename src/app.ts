@@ -41,11 +41,12 @@ app.use(mongoSanitize());
 // Disabling 'X-Powered-By' header for security reasons
 app.disable('x-powered-by');
 
-// routes
+// Routes
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/postjob', postJob);
 app.use('/api/v1/profile', profileRoute);
 
+// Error Handling Middlewar
 app.use(errorHandler);
 
 export default app;
