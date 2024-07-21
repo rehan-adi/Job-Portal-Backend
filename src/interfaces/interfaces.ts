@@ -7,14 +7,14 @@ export interface User extends Document {
 }
 
 export interface Profile extends Document {
-    username: String;
-    email: String;
-    password: String;
-    fullName: String;
-    location: String;
-    role: String;
-    bio: String;
-    githubURL: String;
-    linkedinURL: String;
-    profileImage: String;
+    username: string;
+    email: string;
+    password: string;
+    fullName: string;
+    location: string;
+    role: string;
+    bio: string;
+    githubURL: string;
+    linkedinURL: string;
+    profileImage: string;
 }

@@ -14,7 +14,7 @@ const config: Config = {
     MONGODB_URI: process.env.MONGODB_URI as string,
     SECRET_KEY: process.env.SECRET_KEY as string,
     DB_NAME: process.env.DB_NAME as string,
-    CORS_ORIGIN: process.env.CORS_ORIGIN as string,
+    CORS_ORIGIN: process.env.CORS_ORIGIN as string
 };
 
 export default config;

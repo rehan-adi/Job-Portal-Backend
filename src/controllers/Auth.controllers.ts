@@ -8,12 +8,10 @@ export const register = async (req: Request, res: Response) => {
     try {
         const { name, email, password } = req.body;
         if (!name || !email || !password) {
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: 'Please fill all the fields'
-                });
+            return res.status(400).json({
+                success: false,
+                message: 'Please fill all the fields'
+            });
         }
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -43,12 +41,10 @@ export const login = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: 'Please fill all the fields'
-                });
+            return res.status(400).json({
+                success: false,
+                message: 'Please fill all the fields'
+            });
         }
         const user = await User.findOne({ email });
         if (!user) {
@@ -63,13 +59,9 @@ export const login = async (req: Request, res: Response) => {
                 message: 'Incorrect password. Please try again.'
             });
         }
-        const token = jwt.sign(
-            { userId: user._id },
-            config.SECRET_KEY,
-            {
-                expiresIn: '1h'
-            }
-        );
+        const token = jwt.sign({ userId: user._id }, config.SECRET_KEY, {
+            expiresIn: '1h'
+        });
         res.status(200).json({
             success: true,
             token,
