@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import config from '../config/config.js';
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -64,7 +65,7 @@ export const login = async (req: Request, res: Response) => {
         }
         const token = jwt.sign(
             { userId: user._id },
-            process.env.SECRET_KEY || '',
+            config.SECRET_KEY,
             {
                 expiresIn: '1h'
             }

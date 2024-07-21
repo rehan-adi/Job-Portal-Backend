@@ -7,6 +7,7 @@ import xss from 'xss-clean';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
 import errorHandler from './utils/errorHandler.js';
+import config from './config/config.js';
 
 import postJob from './routes/Job.routs.js';
 import authRoute from './routes/Auth.routs.js';
@@ -24,10 +25,9 @@ const limit = rateLimit({
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(errorHandler);
 app.use(
     cors({
-        origin: process.env.CORS_ORIGIN,
+        origin: config.CORS_ORIGIN,
         credentials: true
     })
 );
@@ -45,5 +45,7 @@ app.disable('x-powered-by');
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/postjob', postJob);
 app.use('/api/v1/profile', profileRoute);
+
+app.use(errorHandler);
 
 export default app;
