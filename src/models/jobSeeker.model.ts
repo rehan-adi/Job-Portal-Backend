@@ -31,5 +31,5 @@ const jobSeekerSchema = new Schema<JobSeeker>({
     ]
   }, {timestamps: true});
   
-  const jobSeekerSchemaModel = model<JobSeeker>('JobSeekerProfile', jobSeekerSchema);
+export const jobSeekerModel = model<JobSeeker>('JobSeeker', jobSeekerSchema);
   

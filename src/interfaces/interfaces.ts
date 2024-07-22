@@ -6,45 +6,34 @@ export interface User extends Document {
     role: string;
 }
 
-export interface JobSeeker extends Document {
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-      },
-      fullName: {
-        type: String,
-        required: true,
-      },
-      resume?: String,
-      skills: [String],
-      education: [
-        {
-          degree: String,
-          institution: String,
-          yearOfCompletion: Number,
-        },
-      ],
-      experience: [
-        {
-          jobTitle: String,
-          company: String,
-          from: Date,
-          to: Date,
-          description: String,
-        },
-      ],
+interface Education {
+    degree: string;
+    institution: string;
+    yearOfCompletion: number;
 }
 
-export interface Profile extends Document {
-    username: string;
-    email: string;
-    password: string;
-    fullName: string;
-    location: string;
-    role: string;
-    bio: string;
-    githubURL: string;
-    linkedinURL: string;
-    profileImage: string;
+interface Experience {
+    jobTitle: string;
+    company: string;
+    from: Date;
+    to: Date;
+    description: string;
+}
+
+export interface JobSeeker extends Document {
+    user: Schema.Types.ObjectId;
+    fullName: string,
+    resume?: string;
+    skills: string[];
+    education: Education[];
+    experience: Experience[];
+}
+
+export interface Employer extends Document {
+    user: Schema.Types.ObjectId;
+    companyName: string;
+    companyDescription?: string;
+    companyLogo?: string;
+    location?: string;
+    website?: string;
 }

@@ -18,7 +18,7 @@ const userSchema = new Schema<User>({
         enum: ['job_seeker', 'employer', 'admin'],
         required: true
     }
-});
+}, {timestamps: true} );
 
 const userModel = model<User>('User', userSchema);
 
