@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import postJobModel from '../models/PostJob.model.js';
-import UserModel from '../models/User.js';
+import UserModel from '../models/user.model.js';
 
 // create jobs
 export const createJob = async (req: Request, res: Response) => {
