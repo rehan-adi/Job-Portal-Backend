@@ -50,3 +50,11 @@ export interface JobListing extends Document {
     };
     category?: string;
 }
+
+export interface JobApplication extends Document {
+    jobListing: Schema.Types.ObjectId;
+    jobSeeker: Schema.Types.ObjectId;
+    status: 'applied' | 'shortlisted' | 'interviewing' | 'hired' | 'rejected';
+    coverLetter?: String;
+    appliedAt?: Date;
+}
