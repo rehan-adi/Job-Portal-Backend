@@ -58,3 +58,9 @@ export interface JobApplication extends Document {
     coverLetter?: string;
     appliedAt?: Date;
 }
+
+export interface Notification extends Document {
+    user: Schema.Types.ObjectId;
+    message: string;
+    read: boolean;
+}
