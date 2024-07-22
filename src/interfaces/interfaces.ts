@@ -55,6 +55,6 @@ export interface JobApplication extends Document {
     jobListing: Schema.Types.ObjectId;
     jobSeeker: Schema.Types.ObjectId;
     status: 'applied' | 'shortlisted' | 'interviewing' | 'hired' | 'rejected';
-    coverLetter?: String;
+    coverLetter?: string;
     appliedAt?: Date;
 }
