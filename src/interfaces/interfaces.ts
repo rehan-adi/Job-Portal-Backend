@@ -22,7 +22,7 @@ interface Experience {
 
 export interface JobSeeker extends Document {
     user: Schema.Types.ObjectId;
-    fullName: string,
+    fullName: string;
     resume?: string;
     skills: string[];
     education: Education[];
@@ -36,4 +36,17 @@ export interface Employer extends Document {
     companyLogo?: string;
     location?: string;
     website?: string;
+}
+
+export interface JobListing extends Document {
+    employer: Schema.Types.ObjectId;
+    title: string;
+    description: string;
+    requirements: string[];
+    location?: string;
+    salaryRange: {
+        min: number;
+        max: number;
+    };
+    category?: string;
 }
