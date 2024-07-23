@@ -6,8 +6,8 @@ import config from '../config/config.js';
 
 export const register = async (req: Request, res: Response) => {
     try {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
+        const { email, password, role } = req.body;
+        if ( !email || !password || !role ) {
             return res.status(400).json({
                 success: false,
                 message: 'Please fill all the fields'
@@ -20,11 +20,14 @@ export const register = async (req: Request, res: Response) => {
                 .json({ success: false, message: 'User already exists' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({ name, email, password: hashedPassword });
-        await user.save();
+        const user = await User.create({ email, password: hashedPassword, role });
         res.status(201).json({
             success: true,
-            user: user,
+            user: {
+                id: user._id,
+                email: user.email,
+                role: user.role,
+            },
             message: 'User registered successfully'
         });
     } catch (error) {
