@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
 import config from '../config/config.js';
 import { ZodError } from 'zod';
-import { registerSchema } from '../validation/userValidation.js';
+import { loginSchema, registerSchema } from '../validation/userValidation.js';
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -46,13 +46,9 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({
-                success: false,
-                message: 'Please fill all the fields'
-            });
-        }
+        const parsedData = loginSchema.parse(req.body);
+        const { email, password } = parsedData;
+
         const user = await User.findOne({ email });
         if (!user) {
             return res
@@ -75,6 +71,12 @@ export const login = async (req: Request, res: Response) => {
             message: 'Login successfully'
         });
     } catch (error) {
+        if (error instanceof ZodError) {
+            return res.status(400).json({
+              success: false,
+              errors: error.errors.map(e => e.message)
+            });
+          }
         console.error(error);
         res.status(500).json({
             success: false,
