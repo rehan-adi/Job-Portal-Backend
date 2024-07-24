@@ -18,23 +18,27 @@ export const register = async (req: Request, res: Response) => {
                 .json({ success: false, message: 'User already exists' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ email, password: hashedPassword, role });
+        const user = await User.create({
+            email,
+            password: hashedPassword,
+            role
+        });
         res.status(201).json({
             success: true,
             user: {
                 id: user._id,
                 email: user.email,
-                role: user.role,
+                role: user.role
             },
             message: 'User registered successfully'
         });
     } catch (error) {
         if (error instanceof ZodError) {
             return res.status(400).json({
-              success: false,
-              errors: error.errors.map(e => e.message)
+                success: false,
+                errors: error.errors.map((e) => e.message)
             });
-          }
+        }
         console.error(error);
         res.status(500).json({
             success: false,
@@ -73,10 +77,10 @@ export const login = async (req: Request, res: Response) => {
     } catch (error) {
         if (error instanceof ZodError) {
             return res.status(400).json({
-              success: false,
-              errors: error.errors.map(e => e.message)
+                success: false,
+                errors: error.errors.map((e) => e.message)
             });
-          }
+        }
         console.error(error);
         res.status(500).json({
             success: false,
