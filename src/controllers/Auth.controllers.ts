@@ -3,16 +3,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
 import config from '../config/config.js';
+import { ZodError } from 'zod';
+import { registerSchema } from '../validation/userValidation.js';
 
 export const register = async (req: Request, res: Response) => {
     try {
-        const { email, password, role } = req.body;
-        if ( !email || !password || !role ) {
-            return res.status(400).json({
-                success: false,
-                message: 'Please fill all the fields'
-            });
-        }
+        const parsedData = registerSchema.parse(req.body);
+        const { email, password, role } = parsedData;
+
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res
@@ -31,6 +29,12 @@ export const register = async (req: Request, res: Response) => {
             message: 'User registered successfully'
         });
     } catch (error) {
+        if (error instanceof ZodError) {
+            return res.status(400).json({
+              success: false,
+              errors: error.errors.map(e => e.message)
+            });
+          }
         console.error(error);
         res.status(500).json({
             success: false,
