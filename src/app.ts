@@ -3,7 +3,7 @@ import hpp from 'hpp';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
-import xss from 'xss-clean';
+// import xss from 'xss-clean';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
 import errorHandler from './utils/errorHandler.js';
@@ -34,7 +34,7 @@ app.use(limit);
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(hpp());
-app.use(xss());
+// app.use(xss());
 app.use(mongoSanitize());
 
 // Disabling 'X-Powered-By' header for security reasons

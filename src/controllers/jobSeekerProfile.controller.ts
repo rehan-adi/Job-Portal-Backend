@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { jobSeekerModel } from '../models/jobSeeker.model.js';
 import { ZodError } from 'zod';
-import { jobSeekerProfileValidation } from '../validation/jobSeekerProfile.validation.js';
+import { jobSeekerProfileValidation } from '../validation/jobSeekerProfile.Validation.js';
+
 
 export const jobSeekerProfileCreate = async (req: Request, res: Response) => {
     try {
