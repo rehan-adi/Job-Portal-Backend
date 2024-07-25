@@ -16,7 +16,7 @@ const userSchema = new Schema<User>(
         },
         role: {
             type: String,
-            enum: ['job_seeker', 'employer', 'admin'],
+            enum: ['job_seeker', 'employer'],
             required: true
         }
     },

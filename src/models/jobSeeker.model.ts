@@ -27,7 +27,7 @@ const jobSeekerSchema = new Schema<JobSeeker>(
                 company: String,
                 from: Date,
                 to: Date,
-                description: String
+                description: [String]
             }
         ]
     },

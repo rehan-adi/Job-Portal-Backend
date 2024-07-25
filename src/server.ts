@@ -1,6 +1,6 @@
 import app from './app.js';
 import dbConnect from './db/dbConnect.js';
-import config from '../src/config/config.js';
+import config from './config/config.js';
 
 // database connection
 dbConnect()
