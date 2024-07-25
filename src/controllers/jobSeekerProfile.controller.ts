@@ -14,7 +14,7 @@ export const jobSeekerProfileCreate = async (req: Request, res: Response) => {
                 .status(400)
                 .json({ success: false, message: 'Profile already exists' });
         }
-        const newProfile = jobSeekerModel.create({
+        const newProfile = await jobSeekerModel.create({
             user,
             fullName,
             resume,

@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import { jobSeekerProfileCreate, jobSeekerProfileGet } from '../controllers/jobSeekerProfile.controller.js';
+import {
+    jobSeekerProfileCreate,
+    jobSeekerProfileGet
+} from '../controllers/jobSeekerProfile.controller.js';
 
 const jobSeekerProfileRouter = Router();
 
