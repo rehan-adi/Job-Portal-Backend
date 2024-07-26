@@ -3,6 +3,10 @@ import { jobSeekerModel } from '../models/jobSeeker.model.js';
 import { ZodError } from 'zod';
 import { jobSeekerProfileValidation } from '../validation/jobSeekerProfile.Validation.js';
 
+interface CustomRequest extends Request {
+    user?: { _id: string };
+}
+
 export const jobSeekerProfileCreate = async (req: Request, res: Response) => {
     try {
         const parsedData = jobSeekerProfileValidation.parse(req.body);
@@ -43,9 +47,12 @@ export const jobSeekerProfileCreate = async (req: Request, res: Response) => {
     }
 };
 
-export const jobSeekerProfileGet = async (req: Request, res: Response) => {
+export const jobSeekerProfileGet = async (
+    req: CustomRequest,
+    res: Response
+) => {
     try {
-        const userId = (req as any).user?._id;
+        const userId = req.user?._id;
 
         if (!userId) {
             return res.status(400).json({
@@ -69,6 +76,45 @@ export const jobSeekerProfileGet = async (req: Request, res: Response) => {
         res.status(500).json({
             success: false,
             message: 'Failed to get Profile',
+            error: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+};
+
+export const jobSeekerProfileDelete = async (
+    req: CustomRequest,
+    res: Response
+) => {
+    try {
+        const userId = req.user?._id;
+
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: 'User ID not found in request.'
+            });
+        }
+
+        const profileDelete = await jobSeekerModel.findOneAndDelete({
+            user: userId
+        });
+
+        if (!profileDelete) {
+            return res.status(404).json({
+                success: false,
+                message: 'Profile not found'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Profile deleted successfully'
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete Profile',
             error: error instanceof Error ? error.message : 'Unknown error'
         });
     }
