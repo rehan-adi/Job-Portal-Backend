@@ -7,19 +7,32 @@ interface CustomRequest extends Request {
     user?: { _id: string };
 }
 
-export const jobSeekerProfileCreate = async (req: Request, res: Response) => {
+export const jobSeekerProfileCreate = async (
+    req: CustomRequest,
+    res: Response
+) => {
     try {
+        const userId = req.user?._id;
+
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: 'User ID not found in request.'
+            });
+        }
+
         const parsedData = jobSeekerProfileValidation.parse(req.body);
-        const { user, fullName, resume, skills, education, experience } =
-            parsedData;
-        const existingProfile = await jobSeekerModel.findOne({ user });
+        const { fullName, resume, skills, education, experience } = parsedData;
+
+        const existingProfile = await jobSeekerModel.findOne({ user: userId });
+
         if (existingProfile) {
             return res
                 .status(400)
                 .json({ success: false, message: 'Profile already exists' });
         }
         const newProfile = await jobSeekerModel.create({
-            user,
+            user: userId,
             fullName,
             resume,
             skills,

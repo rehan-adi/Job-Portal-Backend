@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 export const jobSeekerProfileValidation = z.object({
-    user: z.string({ message: 'User Id required' }),
     fullName: z.string().min(1, { message: 'Full name is required' }),
     resume: z.string().optional(),
     skills: z.array(z.string()).optional(),

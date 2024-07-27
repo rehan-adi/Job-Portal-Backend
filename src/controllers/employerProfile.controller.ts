@@ -46,7 +46,7 @@ export const employerProfileCreate = async (
             location,
             website
         });
-        
+
         return res.status(201).json({
             success: true,
             profile: newProfile,
