@@ -11,6 +11,7 @@ import config from './config/config.js';
 
 import authRoute from './routes/Auth.routes.js';
 import jobSeekerProfileRouter from './routes/jobSeekerProfile.routes.js';
+import employerProfileRouter from './routes/employerProfile.routes.js';
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.disable('x-powered-by');
 // Routes
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/job-seeker-profile', jobSeekerProfileRouter);
+app.use('/api/v1/employer-profile', employerProfileRouter);
 
 // Error Handling Middlewar
 app.use(errorHandler);
