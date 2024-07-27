@@ -3,6 +3,7 @@ import hpp from 'hpp';
 import cors from 'cors';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 // import xss from 'xss-clean';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
@@ -31,6 +32,7 @@ app.use(
         credentials: true
     })
 );
+app.use(cookieParser());
 app.use(limit);
 app.use(morgan('dev'));
 app.use(helmet());
