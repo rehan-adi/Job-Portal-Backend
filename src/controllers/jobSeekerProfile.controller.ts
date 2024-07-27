@@ -81,7 +81,10 @@ export const jobSeekerProfileGet = async (
     }
 };
 
-export const jobSeekerProfileUpdate = async (req: CustomRequest, res: Response) => {
+export const jobSeekerProfileUpdate = async (
+    req: CustomRequest,
+    res: Response
+) => {
     try {
         const userId = req.user?._id;
 
