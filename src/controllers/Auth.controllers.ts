@@ -48,6 +48,7 @@ export const register = async (req: Request, res: Response) => {
     }
 };
 
+
 export const login = async (req: Request, res: Response) => {
     try {
         const parsedData = loginSchema.parse(req.body);
@@ -67,8 +68,16 @@ export const login = async (req: Request, res: Response) => {
             });
         }
         const token = jwt.sign({ userId: user._id }, config.SECRET_KEY, {
-            expiresIn: '1h'
+            expiresIn: '15d'
         });
+
+        res.cookie('authToken', token, {
+            maxAge: 15 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none'
+        });
+
         res.status(200).json({
             success: true,
             token,
