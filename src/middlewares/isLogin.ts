@@ -24,7 +24,7 @@ export const isLogin = (
     // Verify token
     try {
         const decoded = jwt.verify(token, config.SECRET_KEY) as JwtPayload;
-        req.user = decoded;
+        req.user = { id: decoded.userId };
         next();
     } catch (error) {
         console.error('Token verification failed:', error);

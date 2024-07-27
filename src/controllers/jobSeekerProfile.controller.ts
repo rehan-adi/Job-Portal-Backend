@@ -4,7 +4,7 @@ import { ZodError } from 'zod';
 import { jobSeekerProfileValidation } from '../validation/jobSeekerProfile.Validation.js';
 
 interface CustomRequest extends Request {
-    user?: { _id: string };
+    user?: { id: string };
 }
 
 export const jobSeekerProfileCreate = async (
@@ -12,7 +12,7 @@ export const jobSeekerProfileCreate = async (
     res: Response
 ) => {
     try {
-        const userId = req.user?._id;
+        const userId = req.user?.id;
 
         if (!userId) {
             return res.status(400).json({
@@ -65,7 +65,7 @@ export const jobSeekerProfileGet = async (
     res: Response
 ) => {
     try {
-        const userId = req.user?._id;
+        const userId = req.user?.id;
 
         if (!userId) {
             return res.status(400).json({
@@ -99,7 +99,7 @@ export const jobSeekerProfileUpdate = async (
     res: Response
 ) => {
     try {
-        const userId = req.user?._id;
+        const userId = req.user?.id;
 
         if (!userId) {
             return res.status(400).json({
@@ -150,7 +150,7 @@ export const jobSeekerProfileDelete = async (
     res: Response
 ) => {
     try {
-        const userId = req.user?._id;
+        const userId = req.user?.id;
 
         if (!userId) {
             return res.status(400).json({
