@@ -4,7 +4,7 @@ import { ZodError } from 'zod';
 import { employerProfileValidation } from '../validation/employerProfile.Validation.js';
 
 interface CustomRequest extends Request {
-    user?: { _id: string };
+    user?: { id: string };
 }
 
 export const employerProfileCreate = async (
@@ -12,7 +12,7 @@ export const employerProfileCreate = async (
     res: Response
 ) => {
     try {
-        const userId = req.user?._id;
+        const userId = req.user?.id;
 
         if (!userId) {
             return res.status(400).json({
