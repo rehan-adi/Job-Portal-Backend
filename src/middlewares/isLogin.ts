@@ -41,3 +41,20 @@ export const isLogin = (req: Request, res: Response, next: NextFunction) => {
         });
     }
 };
+
+/**
+ * Middleware to check if the user has the role of 'Job Seeker'.
+ * It ensures that only users with the 'job_seeker' role can access the route.
+ */
+export const isJobSeeker = (
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+) => {
+    if (!req.user || req.user.role !== 'job_seeker') {
+        return res
+            .status(403)
+            .json({ message: 'Access forbidden: Job Seekers only' });
+    }
+    next();
+};
