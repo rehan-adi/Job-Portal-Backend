@@ -5,13 +5,33 @@ import {
     jobSeekerProfileUpdate,
     jobSeekerProfileDelete
 } from '../controllers/jobSeekerProfile.controller.js';
-import { isLogin } from '../middlewares/isLogin.js';
+import { isJobSeeker, isLogin } from '../middlewares/isLogin.js';
 
 const jobSeekerProfileRouter = Router();
 
-jobSeekerProfileRouter.post('/create', isLogin, jobSeekerProfileCreate);
-jobSeekerProfileRouter.get('/profile', isLogin, jobSeekerProfileGet);
-jobSeekerProfileRouter.put('/update', isLogin, jobSeekerProfileUpdate);
-jobSeekerProfileRouter.delete('/delete', isLogin, jobSeekerProfileDelete);
+jobSeekerProfileRouter.post(
+    '/create',
+    isLogin,
+    isJobSeeker,
+    jobSeekerProfileCreate
+);
+jobSeekerProfileRouter.get(
+    '/profile',
+    isLogin,
+    isJobSeeker,
+    jobSeekerProfileGet
+);
+jobSeekerProfileRouter.put(
+    '/update',
+    isLogin,
+    isJobSeeker,
+    jobSeekerProfileUpdate
+);
+jobSeekerProfileRouter.delete(
+    '/delete',
+    isLogin,
+    isJobSeeker,
+    jobSeekerProfileDelete
+);
 
 export default jobSeekerProfileRouter;
