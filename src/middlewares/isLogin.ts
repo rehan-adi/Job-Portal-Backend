@@ -58,3 +58,20 @@ export const isJobSeeker = (
     }
     next();
 };
+
+/**
+ * Middleware to check if the user has the role of 'Employer'.
+ * It ensures that only users with the 'employer' role can access the route.
+ */
+export const isEmployer = (
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+) => {
+    if (!req.user || req.user.role !== 'employer') {
+        return res
+            .status(403)
+            .json({ message: 'Access forbidden: Employers only' });
+    }
+    next();
+};
