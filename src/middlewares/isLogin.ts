@@ -2,15 +2,19 @@ import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config/config.js';
 
-interface CustomRequest extends Request {
-    user?: JwtPayload;
+interface UserPayload {
+    userId: string;
+    role: string;
 }
 
-export const isLogin = (
-    req: CustomRequest,
-    res: Response,
-    next: NextFunction
-) => {
+interface AuthenticatedRequest extends Request {
+    user?: {
+        id: string;
+        role: string;
+    };
+}
+
+export const isLogin = (req: Request, res: Response, next: NextFunction) => {
     const token =
         req.cookies.authToken || req.headers.authorization?.split(' ')[1];
 
@@ -23,8 +27,11 @@ export const isLogin = (
 
     // Verify token
     try {
-        const decoded = jwt.verify(token, config.SECRET_KEY) as JwtPayload;
-        req.user = { id: decoded.userId };
+        const decoded = jwt.verify(token, config.SECRET_KEY) as UserPayload;
+        (req as AuthenticatedRequest).user = {
+            id: decoded.userId,
+            role: decoded.role
+        };
         next();
     } catch (error) {
         console.error('Token verification failed:', error);

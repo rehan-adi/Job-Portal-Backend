@@ -66,9 +66,13 @@ export const login = async (req: Request, res: Response) => {
                 message: 'Incorrect password. Please try again.'
             });
         }
-        const token = jwt.sign({ userId: user._id, role: user.role }, config.SECRET_KEY, {
-            expiresIn: '15d'
-        });
+        const token = jwt.sign(
+            { userId: user._id, role: user.role },
+            config.SECRET_KEY,
+            {
+                expiresIn: '15d'
+            }
+        );
 
         res.cookie('authToken', token, {
             maxAge: 15 * 24 * 60 * 60 * 1000,
