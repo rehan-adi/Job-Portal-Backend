@@ -102,56 +102,56 @@ export const employerProfileGet = async (
     }
 };
 
-// export const jobSeekerProfileUpdate = async (
-//     req: CustomRequest,
-//     res: Response
-// ) => {
-//     try {
-//         const userId = req.user?._id;
+export const employerProfileUpdate = async (
+    req: CustomRequest,
+    res: Response
+) => {
+    try {
+        const userId = req.user?.id;
 
-//         if (!userId) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: 'User ID not found in request.'
-//             });
-//         }
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: 'User ID not found in request.'
+            });
+        }
 
-//         const parsedData = jobSeekerProfileValidation.partial().parse(req.body);
-//         const { fullName, resume, skills, education, experience } = parsedData;
+        const parsedData = employerProfileValidation.partial().parse(req.body);
+        const { companyName, companyDescription, companyLogo, location, website } = parsedData;
 
-//         const updatedProfile = await jobSeekerModel.findOneAndUpdate(
-//             { user: userId },
-//             { fullName, resume, skills, education, experience },
-//             { new: true, runValidators: true }
-//         );
+        const updatedProfile = await employerModel.findOneAndUpdate(
+            { user: userId },
+            { companyName, companyDescription, companyLogo, location, website },
+            { new: true, runValidators: true }
+        );
 
-//         if (!updatedProfile) {
-//             return res.status(404).json({
-//                 success: false,
-//                 message: 'Profile not found'
-//             });
-//         }
+        if (!updatedProfile) {
+            return res.status(404).json({
+                success: false,
+                message: 'Profile not found'
+            });
+        }
 
-//         return res.status(200).json({
-//             success: true,
-//             profile: updatedProfile,
-//             message: 'Profile updated successfully'
-//         });
-//     } catch (error) {
-//         if (error instanceof ZodError) {
-//             return res.status(400).json({
-//                 success: false,
-//                 errors: error.errors.map((e) => e.message)
-//             });
-//         }
-//         console.error(error);
-//         res.status(500).json({
-//             success: false,
-//             message: 'Failed to update Profile',
-//             error: error instanceof Error ? error.message : 'Unknown error'
-//         });
-//     }
-// };
+        return res.status(200).json({
+            success: true,
+            profile: updatedProfile,
+            message: 'Profile updated successfully'
+        });
+    } catch (error) {
+        if (error instanceof ZodError) {
+            return res.status(400).json({
+                success: false,
+                errors: error.errors.map((e) => e.message)
+            });
+        }
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to update Profile',
+            error: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+};
 
 // export const jobSeekerProfileDelete = async (
 //     req: CustomRequest,
