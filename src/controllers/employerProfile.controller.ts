@@ -68,10 +68,7 @@ export const employerProfileCreate = async (
     }
 };
 
-export const employerProfileGet = async (
-    req: CustomRequest,
-    res: Response
-) => {
+export const employerProfileGet = async (req: CustomRequest, res: Response) => {
     try {
         const userId = req.user?.id;
 
@@ -117,7 +114,13 @@ export const employerProfileUpdate = async (
         }
 
         const parsedData = employerProfileValidation.partial().parse(req.body);
-        const { companyName, companyDescription, companyLogo, location, website } = parsedData;
+        const {
+            companyName,
+            companyDescription,
+            companyLogo,
+            location,
+            website
+        } = parsedData;
 
         const updatedProfile = await employerModel.findOneAndUpdate(
             { user: userId },
@@ -153,41 +156,41 @@ export const employerProfileUpdate = async (
     }
 };
 
-// export const jobSeekerProfileDelete = async (
-//     req: CustomRequest,
-//     res: Response
-// ) => {
-//     try {
-//         const userId = req.user?._id;
+export const employerProfileDelete = async (
+    req: CustomRequest,
+    res: Response
+) => {
+    try {
+        const userId = req.user?.id;
 
-//         if (!userId) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: 'User ID not found in request.'
-//             });
-//         }
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: 'User ID not found in request.'
+            });
+        }
 
-//         const profileDelete = await jobSeekerModel.findOneAndDelete({
-//             user: userId
-//         });
+        const profileDelete = await employerModel.findOneAndDelete({
+            user: userId
+        });
 
-//         if (!profileDelete) {
-//             return res.status(404).json({
-//                 success: false,
-//                 message: 'Profile not found'
-//             });
-//         }
+        if (!profileDelete) {
+            return res.status(404).json({
+                success: false,
+                message: 'Profile not found'
+            });
+        }
 
-//         return res.status(200).json({
-//             success: true,
-//             message: 'Profile deleted successfully'
-//         });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({
-//             success: false,
-//             message: 'Failed to delete Profile',
-//             error: error instanceof Error ? error.message : 'Unknown error'
-//         });
-//     }
-// };
+        return res.status(200).json({
+            success: true,
+            message: 'Profile deleted successfully'
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete Profile',
+            error: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+};
