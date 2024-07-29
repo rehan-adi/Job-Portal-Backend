@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { employerProfileCreate, employerProfileGet } from '../controllers/employerProfile.controller.js';
+import { employerProfileCreate, employerProfileGet, employerProfileUpdate } from '../controllers/employerProfile.controller.js';
 import { isEmployer, isLogin } from '../middlewares/isLogin.js';
 
 const employerProfileRouter = Router();
@@ -10,12 +10,17 @@ employerProfileRouter.post(
     isEmployer,
     employerProfileCreate
 );
-
 employerProfileRouter.get(
     '/profile',
     isLogin,
     isEmployer,
     employerProfileGet
+);
+employerProfileRouter.put(
+    '/update',
+    isLogin,
+    isEmployer,
+    employerProfileUpdate
 );
 
 export default employerProfileRouter;
