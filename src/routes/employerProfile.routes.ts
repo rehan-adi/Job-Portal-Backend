@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import {
     employerProfileCreate,
+    employerProfileDelete,
     employerProfileGet,
     employerProfileUpdate
 } from '../controllers/employerProfile.controller.js';
@@ -20,6 +21,12 @@ employerProfileRouter.put(
     isLogin,
     isEmployer,
     employerProfileUpdate
+);
+employerProfileRouter.delete(
+    '/update',
+    isLogin,
+    isEmployer,
+    employerProfileDelete
 );
 
 export default employerProfileRouter;
