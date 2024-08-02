@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import hpp from 'hpp';
 import cors from 'cors';
 import morgan from 'morgan';
@@ -47,6 +47,11 @@ app.disable('x-powered-by');
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/job-seeker-profile', jobSeekerProfileRouter);
 app.use('/api/v1/employer-profile', employerProfileRouter);
+
+// health check route
+app.use("/", (req: Request, res: Response) => {
+     return res.status(200).json({ success: true, message: "OK" });
+})
 
 // Error Handling Middlewar
 app.use(errorHandler);
