@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { employerModel } from '../models/employer.model.js';
 import { ZodError } from 'zod';
-import { employerProfileValidation } from '../validation/employerProfile.Validation.js';
+import { employerProfileValidation } from '../validations/employerProfile.Validation.js';
 
 interface CustomRequest extends Request {
     user?: { id: string };

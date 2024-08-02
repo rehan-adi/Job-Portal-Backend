@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
 import config from '../config/config.js';
 import { ZodError } from 'zod';
-import { loginSchema, registerSchema } from '../validation/userValidation.js';
+import { loginSchema, registerSchema } from '../validations/userValidation.js';
 
 export const register = async (req: Request, res: Response) => {
     try {
