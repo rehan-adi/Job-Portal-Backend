@@ -49,9 +49,9 @@ app.use('/api/v1/job-seeker-profile', jobSeekerProfileRouter);
 app.use('/api/v1/employer-profile', employerProfileRouter);
 
 // health check route
-app.use("/", (req: Request, res: Response) => {
-     return res.status(200).json({ success: true, message: "OK" });
-})
+app.use('/', (req: Request, res: Response) => {
+    return res.status(200).json({ success: true, message: 'OK' });
+});
 
 // Error Handling Middlewar
 app.use(errorHandler);
