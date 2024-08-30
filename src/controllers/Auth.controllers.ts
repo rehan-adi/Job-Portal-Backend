@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
 import config from '../config/config.js';
 import { ZodError } from 'zod';
-import { loginSchema, registerSchema } from '../validations/userValidation.js';
+import { loginSchema, registerSchema } from '../validations/user.Validation.js';
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -74,7 +74,7 @@ export const login = async (req: Request, res: Response) => {
             }
         );
 
-        res.cookie('authToken', token, {
+        res.cookie('token', token, {
             maxAge: 15 * 24 * 60 * 60 * 1000,
             httpOnly: true,
             secure: true,
