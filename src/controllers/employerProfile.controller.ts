@@ -1,6 +1,7 @@
+import jwt from 'jsonwebtoken';
+import { ZodError } from 'zod';
 import { Request, Response } from 'express';
 import { employerModel } from '../models/employer.model.js';
-import { ZodError } from 'zod';
 import { employerProfileValidation } from '../validations/employerProfile.Validation.js';
 
 interface CustomRequest extends Request {
@@ -8,16 +9,27 @@ interface CustomRequest extends Request {
 }
 
 export const employerProfileCreate = async (
-    req: CustomRequest,
+    req: Request,
     res: Response
 ) => {
     try {
-        const userId = req.user?.id;
+        const token = req.cookies.token;
 
-        if (!userId) {
+        if (!token) {
             return res.status(400).json({
                 success: false,
-                message: 'User ID not found'
+                message: 'Token not found'
+            });
+        }
+
+        let userId: string;
+        try {
+            const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
+            userId = decodedToken.id;
+        } catch (err) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid or expired token'
             });
         }
 
