@@ -82,14 +82,27 @@ export const employerProfileCreate = async (
 
 export const employerProfileGet = async (req: CustomRequest, res: Response) => {
     try {
-        const userId = req.user?.id;
+        const token = req.cookies.token;
 
-        if (!userId) {
+        if (!token) {
             return res.status(400).json({
                 success: false,
-                message: 'User ID not found.'
+                message: 'Token not found'
             });
         }
+
+
+        let userId: string;
+        try {
+            const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
+            userId = decodedToken.id;
+        } catch (err) {
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid or expired token'
+            });
+        }
+
 
         const profile = await employerModel.findOne({ user: userId });
 
