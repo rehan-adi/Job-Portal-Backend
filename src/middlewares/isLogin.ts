@@ -16,7 +16,7 @@ interface AuthenticatedRequest extends Request {
 
 export const isLogin = (req: Request, res: Response, next: NextFunction) => {
     const token =
-        req.cookies.authToken || req.headers.authorization?.split(' ')[1];
+        req.cookies.token || req.headers.authorization?.split(' ')[1];
 
     if (!token) {
         return res.status(401).json({
@@ -41,6 +41,7 @@ export const isLogin = (req: Request, res: Response, next: NextFunction) => {
         });
     }
 };
+
 
 /**
  * Middleware to check if the user has the role of 'Job Seeker'.
