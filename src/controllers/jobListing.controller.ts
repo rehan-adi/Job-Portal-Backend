@@ -1,5 +1,6 @@
 import { ZodError } from 'zod';
 import jwt from 'jsonwebtoken';
+import config from '../config/config.js';
 import { Request, Response } from 'express';
 import { jobListingModel } from '../models/jobListing.model.js';
 import { jobListingValidation } from '../validations/jobListing.validation.js';
@@ -17,8 +18,8 @@ export const createJobListing = async(req: Request, res: Response) =>  {
 
         let employerId: string;
         try {
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-            employerId = decodedToken.id;
+            const decodedToken = jwt.verify(token, config.SECRET_KEY) as { userId: string };
+            employerId = decodedToken.userId;
         } catch (err) {
             return res.status(401).json({
                 success: false,
