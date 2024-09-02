@@ -15,10 +15,10 @@ export const createJobListing = async(req: Request, res: Response) =>  {
             });
         }
 
-        let userId: string;
+        let employerId: string;
         try {
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-            userId = decodedToken.id;
+            employerId = decodedToken.id;
         } catch (err) {
             return res.status(401).json({
                 success: false,
@@ -26,10 +26,10 @@ export const createJobListing = async(req: Request, res: Response) =>  {
             });
         }
 
-        if(!userId) {
+        if(!employerId) {
             return res.status(400).json({
                 success: false,
-                message: 'User ID not found in request.'
+                message: 'Employer ID not found in request.'
             });
         }
 
@@ -37,7 +37,7 @@ export const createJobListing = async(req: Request, res: Response) =>  {
         const { title, description, requirements, location, salaryRange, category } = parsedData;
 
         const newJobListing = await jobListingModel.create({
-            user: userId,
+            employer: employerId,
             title,
             description,
             requirements,
@@ -62,8 +62,26 @@ export const createJobListing = async(req: Request, res: Response) =>  {
         console.error(error);
         res.status(500).json({
             success: false,
-            message: 'Failed to register',
+            message: 'Failed to create job listing',
             error: error instanceof Error ? error.message : 'Unknown error'
         });
     }
+}
+
+export const getAllJobListings = async(req: Request, res: Response) => {
+   try {
+       const jobListings = await jobListingModel.find().populate('employer', 'name');
+       return res.status(200).json({
+           success: true,
+           data: jobListings,
+           message: 'Job listings retrieved successfully',
+       });
+   } catch (error) {
+    console.error(error);
+    res.status(500).json({
+        success: false,
+        message: 'Failed to get job listing',
+        error: error instanceof Error ? error.message : 'Unknown error'
+    });
+   }
 }
