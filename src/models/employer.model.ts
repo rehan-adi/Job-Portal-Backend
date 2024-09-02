@@ -8,6 +8,10 @@ const employerSchema = new Schema<Employer>(
             ref: 'User',
             required: true
         },
+        name: {
+            type: String,
+            required: true
+        },
         companyName: {
             type: String,
             required: true

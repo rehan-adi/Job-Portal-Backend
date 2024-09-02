@@ -31,6 +31,7 @@ export interface JobSeeker extends Document {
 
 export interface Employer extends Document {
     user: Schema.Types.ObjectId;
+    name: string;
     companyName: string;
     companyDescription?: string;
     companyLogo?: string;
