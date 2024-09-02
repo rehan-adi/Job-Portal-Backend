@@ -13,6 +13,7 @@ import config from './config/config.js';
 import authRoute from './routes/Auth.routes.js';
 import jobSeekerProfileRouter from './routes/jobSeekerProfile.routes.js';
 import employerProfileRouter from './routes/employerProfile.routes.js';
+import jobListingRouter from './routes/jobListing.routes.js';
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.disable('x-powered-by');
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/job-seeker-profile', jobSeekerProfileRouter);
 app.use('/api/v1/employer-profile', employerProfileRouter);
+app.use('/api/v1/job-listing', jobListingRouter);
 
 // health check route
 app.use('/', (req: Request, res: Response) => {
