@@ -11,10 +11,7 @@ export const registerSchema = z.object({
         .regex(/[A-Z]/, {
             message: 'Password must contain at least one uppercase letter'
         })
-        .regex(/\d/, { message: 'Password must contain at least one digit' })
-        .regex(/[^a-zA-Z0-9]/, {
-            message: 'Password must contain at least one special character'
-        }),
+        .regex(/\d/, { message: 'Password must contain at least one digit' }),
     role: z.enum(['job_seeker', 'employer'], {
         message: 'Invalid role specified'
     })
@@ -32,7 +29,4 @@ export const loginSchema = z.object({
             message: 'Password must contain at least one uppercase letter'
         })
         .regex(/\d/, { message: 'Password must contain at least one digit' })
-        .regex(/[^a-zA-Z0-9]/, {
-            message: 'Password must contain at least one special character'
-        })
 });
