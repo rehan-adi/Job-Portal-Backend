@@ -36,6 +36,7 @@ export const employerProfileCreate = async (
         const parsedData = employerProfileValidation.parse(req.body);
         const {
             companyName,
+            name,
             companyDescription,
             companyLogo,
             location,
@@ -52,6 +53,7 @@ export const employerProfileCreate = async (
 
         const newProfile = await employerModel.create({
             user: userId,
+            name,
             companyName,
             companyDescription,
             companyLogo,

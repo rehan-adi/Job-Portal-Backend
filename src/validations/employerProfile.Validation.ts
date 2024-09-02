@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const employerProfileValidation = z.object({
     companyName: z.string().min(1, { message: 'Company name is required' }),
+    name: z.string().min(1, { message: 'Name is required' }),
     companyDescription: z
         .string()
         .min(10, {
