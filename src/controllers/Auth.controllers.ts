@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import User from '../models/user.model.js';
-import config from '../config/config.js';
 import { ZodError } from 'zod';
+import jwt from 'jsonwebtoken';
+import config from '../config/config.js';
+import User from '../models/user.model.js';
+import { Request, Response } from 'express';
 import { loginSchema, registerSchema } from '../validations/user.Validation.js';
 
 export const register = async (req: Request, res: Response) => {
@@ -101,3 +101,22 @@ export const login = async (req: Request, res: Response) => {
         });
     }
 };
+
+
+export const logout = async(req: Request, res: Response) => {
+    try {
+         res.clearCookie('token');
+         res.status(200).json({
+             success: true,
+             message: 'Logged out successfully'
+         });
+ 
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to logout',
+            error: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+}
