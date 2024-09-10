@@ -21,7 +21,7 @@ const router = express.Router();
  *                 example: user@example.com
  *               password:
  *                 type: string
- *                 example: password123
+ *                 example: Password123
  *               role:
  *                 type: string
  *                 example: user
@@ -77,10 +77,10 @@ router.post('/register', register);
  *                 example: user@example.com
  *               password:
  *                 type: string
- *                 example: password123
+ *                 example: Password123
  *     responses:
  *       200:
- *         description: User logged is successfully
+ *         description: User logged in successfully
  *         content:
  *           application/json:
  *             schema:
@@ -89,13 +89,13 @@ router.post('/register', register);
  *                 success:
  *                   type: boolean
  *                   example: true
- *                  token:
+ *                 token:
  *                   type: string
  *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MGQwZmU0ZjUxMjMxNjE2OGExMDljYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NTU2NjAwLCJleHBpcm9jZTIiOiIxNTU4NTYyMDAwIiwiZXhwIjoxNjg0NTU2NjAwLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpc3MiOiJhcGkiLCJzdWIiOiJ1c2VyIn0.Tw1KfEXAMPLEkPQKP9Qh0oH1Yk9KXkAfWcPdMtXEg
  *                 message:
  *                   type: string
  *                   example: Login successfully
- *        400:
+ *       400:
  *         description: Invalid email or password
  *       401:
  *         description: Unauthorized
