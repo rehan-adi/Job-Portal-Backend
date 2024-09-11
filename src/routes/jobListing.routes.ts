@@ -5,6 +5,6 @@ import { isEmployer, isLogin } from '../middlewares/isLogin.js';
 const jobListingRouter = express.Router();
 
 jobListingRouter.post('/create', isLogin, isEmployer, createJobListing);
-jobListingRouter.get('/get', isLogin, isEmployer, getAllJobListings);
+jobListingRouter.get('/get', getAllJobListings);
 
 export default jobListingRouter;

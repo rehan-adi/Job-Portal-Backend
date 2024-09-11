@@ -42,7 +42,6 @@ app.use(limit);
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(hpp());
-// app.use(xss());
 app.use(mongoSanitize());
 
 // Disabling 'X-Powered-By' header for security reasons
