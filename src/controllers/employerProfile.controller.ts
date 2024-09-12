@@ -8,10 +8,7 @@ interface CustomRequest extends Request {
     user?: { id: string };
 }
 
-export const employerProfileCreate = async (
-    req: Request,
-    res: Response
-) => {
+export const employerProfileCreate = async (req: Request, res: Response) => {
     try {
         const userId = (req as any).user?.id;
 
@@ -20,7 +17,7 @@ export const employerProfileCreate = async (
                 success: false,
                 message: 'Unauthorized'
             });
-        };
+        }
 
         const parsedData = employerProfileValidation.parse(req.body);
         const {
@@ -73,27 +70,14 @@ export const employerProfileCreate = async (
 
 export const employerProfileGet = async (req: CustomRequest, res: Response) => {
     try {
-        const token = req.cookies.token;
+        const userId = (req as any).user?.id;
 
-        if (!token) {
-            return res.status(400).json({
-                success: false,
-                message: 'Token not found'
-            });
-        }
-
-
-        let userId: string;
-        try {
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-            userId = decodedToken.id;
-        } catch (err) {
+        if (!userId) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid or expired token'
+                message: 'Unauthorized'
             });
         }
-
 
         const profile = await employerModel.findOne({ user: userId });
 
@@ -104,7 +88,7 @@ export const employerProfileGet = async (req: CustomRequest, res: Response) => {
         }
         return res
             .status(200)
-            .json({ success: true, profile, message: 'Showing profile' });
+            .json({ success: true, profile, message: 'Showing your profile' });
     } catch (error) {
         console.error(error);
         res.status(500).json({
@@ -120,26 +104,15 @@ export const employerProfileUpdate = async (
     res: Response
 ) => {
     try {
-        const token = req.cookies.token;
 
-        if (!token) {
-            return res.status(400).json({
-                success: false,
-                message: 'Token not found'
-            });
-        }
+        const userId = (req as any).user?.id;
 
-
-        let userId: string;
-        try {
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-            userId = decodedToken.id;
-        } catch (err) {
+        if (!userId) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid or expired token'
+                message: 'Unauthorized'
             });
-        }
+        };
 
         const parsedData = employerProfileValidation.partial().parse(req.body);
         const {
@@ -189,26 +162,16 @@ export const employerProfileDelete = async (
     res: Response
 ) => {
     try {
-        const token = req.cookies.token;
 
-        if (!token) {
-            return res.status(400).json({
-                success: false,
-                message: 'Token not found'
-            });
-        }
+        const userId = (req as any).user?.id;
 
-
-        let userId: string;
-        try {
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-            userId = decodedToken.id;
-        } catch (err) {
+        if (!userId) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid or expired token'
+                message: 'Unauthorized'
             });
-        }
+        };
+
         const profileDelete = await employerModel.findOneAndDelete({
             user: userId
         });
