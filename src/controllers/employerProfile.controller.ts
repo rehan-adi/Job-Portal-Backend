@@ -13,25 +13,14 @@ export const employerProfileCreate = async (
     res: Response
 ) => {
     try {
-        const token = req.cookies.token;
+        const userId = (req as any).user?.id;
 
-        if (!token) {
-            return res.status(400).json({
-                success: false,
-                message: 'Token not found'
-            });
-        }
-
-        let userId: string;
-        try {
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
-            userId = decodedToken.id;
-        } catch (err) {
+        if (!userId) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid or expired token'
+                message: 'Unauthorized'
             });
-        }
+        };
 
         const parsedData = employerProfileValidation.parse(req.body);
         const {
